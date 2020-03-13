@@ -9,7 +9,7 @@ using namespace std;
 class Unit{
 		string name;
 		string type;		
-		int hp;
+		float hp;
 		int hpmax;
 		int atk;
 		int def;
@@ -64,12 +64,43 @@ void Unit::newTurn(){
 }
 
 //Write Function Member attack(), beAttacked(), heal(), guard() and isDead() here
-//
-//
-//
-//
-//
-//
+int Unit::attack(Unit &att){
+	//cout << ">>" << name << "attected.\n";
+	return att.beAttacked(atk);
+}
+
+
+
+int Unit::beAttacked(int oppatk){
+	int dmg = oppatk - def;
+	if(dmg < 0) dmg = 0; 
+	if(guard_on) dmg = (oppatk - def)/3;
+	hp = hp - dmg;
+	return dmg;
+}
+
+
+int Unit::heal(){
+	int h = rand()%20 +10;
+	if (hp == hpmax) return 0;
+	hp = h + hp;
+	if(hp >= hpmax){
+		hp = hpmax;
+		return h;
+	} 
+	else return h;
+}	
+
+
+void Unit::guard(){
+	guard_on = true;
+}
+
+
+bool Unit::isDead(){
+	if(hp <= 0) return true;
+	else return false; 
+}	
 
 void drawScene(char p_action,int p,char m_action,int m){
 	cout << "                                                       \n";
