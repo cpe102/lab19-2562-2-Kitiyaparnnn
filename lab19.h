@@ -83,13 +83,17 @@ int Unit::beAttacked(int oppatk){
 int Unit::heal(){
 	int h = rand()%20 +10;
 	if (hp == hpmax) return 0;
-	hp = h + hp;
-	if(hp >= hpmax){
+	//hp = h + hp;
+	if(hp+h >= hpmax){
+		int i=hpmax-hp;
 		hp = hpmax;
-		return h;
+		return i;	
 	} 
-	else return h;
-}	
+	if(hp+h <= hpmax){
+		hp = h+hp;
+		return h;
+	}	
+}
 
 
 void Unit::guard(){
